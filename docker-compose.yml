@@ -1,0 +1,24 @@
+version: "3.7"
+services: 
+    advantage-frontend:
+        container_name: advantage-frontend
+        labels:
+          - "traefik.enable=true"
+          - "traefik.http.routers.advantage-frontend.rule=Host(`bproject.info`)"
+          - "traefik.http.routers.advantage-frontend.entrypoints=advantage-frontend"
+          - "traefik.http.routers.advantage-frontend.tls.certresolver=myresolver"
+          - "traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https"
+          - "traefik.http.routers.redirs.rule=hostregexp(`{host:.+}`)"
+          - "traefik.http.routers.redirs.entrypoints=web"
+          - "traefik.http.routers.redirs.middlewares=redirect-to-https"
+        build:
+          context: .
+          dockerfile: Dockerfile
+        ports: 
+            - 4005:3052
+            
+networks:
+  default:
+    name: traefik_default
+    external: true
+        

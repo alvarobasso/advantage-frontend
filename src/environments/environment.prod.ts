@@ -1,4 +1,4 @@
 export const environment = {
-    production: true,
-    apiKey: 'prodKey'
-  };
+  production: false,
+  apiUrl: 'https://bproject.info:3051'
+};
