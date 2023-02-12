@@ -1,0 +1,19 @@
+<mat-toolbar color="primary">
+    <mat-toolbar-row>
+        <button mat-icon-button>
+            <mat-icon>menu</mat-icon>
+        </button>
+        <span class="menu-spacer"></span>
+        <div>
+            <a mat-button [routerLink]="'/users'"> User </a>
+            <a mat-button [routerLink]="'/features'"> Features </a>
+            <a mat-button [routerLink]="'/contacts'"> Contacts </a>
+            <a mat-button [routerLink]="'/activities'"> Activities </a>
+
+        </div>
+    </mat-toolbar-row>
+</mat-toolbar>
+
+<div class="content">
+    <router-outlet></router-outlet>
+</div>
