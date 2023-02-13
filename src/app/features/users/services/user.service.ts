@@ -29,9 +29,9 @@ export class UserService {
   //   return this.http.put(`${baseUrl}/${id}`, data);
   // }
 
-  // delete(id: any): Observable<any> {
-  //   return this.http.delete(`${baseUrl}/${id}`);
-  // }
+  delete(id: any): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/users/${id}`);
+  }
 
   // deleteAll(): Observable<any> {
   //   return this.http.delete(baseUrl);

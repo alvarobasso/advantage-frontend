@@ -35,7 +35,7 @@
             <div class="form-group">
                 <mat-form-field appearance="outline">
                     <mat-label>Phone number</mat-label>
-                    <input matInput type="number" id="phoneNumber" required [(ngModel)]="user.phoneNumber">
+                    <input matInput type="number" min="1111111" max="9999999" id="phoneNumber" required [(ngModel)]="user.phoneNumber">
                 </mat-form-field>
             </div>
 

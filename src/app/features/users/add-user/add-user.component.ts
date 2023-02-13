@@ -57,7 +57,9 @@ export class AddUserComponent {
             this.submitted = true;
             this.retrieveUsers();
           },
-          error: (e) => console.error(e)
+          error: (error) => {
+            this.signError = error.error.errors[0].msg;
+          }
         });
     }
 
@@ -91,19 +93,17 @@ export class AddUserComponent {
       });
   }
 
-
-
   ngAfterViewInit() {
     this.signPad = new SignaturePad(this.signaturePadElement.nativeElement);
   }
-  /*It's work in devices*/
+  
   startSignPadDrawing(event: Event) {
     console.log(event);
   }
-  /*It's work in devices*/
+  
   movedFinger(event: Event) {
   }
-  /*Undo last step from the signature*/
+  
   undoSign() {
     const data = this.signPad.toData();
     if (data) {
@@ -111,11 +111,11 @@ export class AddUserComponent {
       this.signPad.fromData(data);
     }
   }
-  /*Clean whole the signature*/
+  
   clearSignPad() {
     this.signPad.clear();
   }
-  /*Here you can save the signature as a Image*/
+  
   saveSignPad() {
     const base64ImageData = this.signPad.toDataURL();
     this.signImage = base64ImageData;

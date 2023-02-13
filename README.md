@@ -2,6 +2,14 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.0.2.
 
+## To do
+- Complete crud actions: update user
+- Fix paginator and count of items for table users
+- Improve validations on new user form
+- Add spiner loading between process
+- Review responsive for mobiles
+
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
