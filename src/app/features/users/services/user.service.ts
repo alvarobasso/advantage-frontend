@@ -17,9 +17,9 @@ export class UserService {
     return this.http.get<UserData>(this.apiUrl+'/users');
   }
 
-  // get(id: any): Observable<Tutorial> {
-  //   return this.http.get<Tutorial>(`${baseUrl}/${id}`);
-  // }
+  getUser(id: any): Observable<UserData> {
+    return this.http.get<UserData>(`${this.apiUrl}/users/${id}`);
+  }
 
   create(data: any): Observable<any> {
     return this.http.post(this.apiUrl+'/users', data);

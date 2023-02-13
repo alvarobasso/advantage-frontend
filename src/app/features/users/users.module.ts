@@ -5,17 +5,21 @@ import { AngularMaterialModule } from '../angular-material/angular-material.modu
 import { AddUserComponent } from './add-user/add-user.component';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { DecodeSignComponent } from './decode-sign/decode-sign.component';
 
 @NgModule({
   declarations: [
     ListUsersComponent,
-    AddUserComponent
+    AddUserComponent,
+    DecodeSignComponent
   ],
   imports: [
     CommonModule,
     AngularMaterialModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   exports: [
   ]

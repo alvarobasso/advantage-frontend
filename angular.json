@@ -72,7 +72,7 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "advantage:build:production",
+              "browserTarget": "advantage:build:production"
             },
             "development": {
               "browserTarget": "advantage:build:development"

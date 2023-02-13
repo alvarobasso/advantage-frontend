@@ -10,6 +10,9 @@ import { AngularMaterialModule } from './features/angular-material/angular-mater
 import { CommonFeaturesModule } from './features/common/common-features.module';
 import { UsersModule } from './features/users/users.module';
 
+import { ListUserService } from './features/users/services/list-user.service';
+
+
 @NgModule({
   declarations: [
     AppComponent
@@ -21,9 +24,9 @@ import { UsersModule } from './features/users/users.module';
     HttpClientModule,
     AngularMaterialModule,
     CommonFeaturesModule,
-    UsersModule
+    UsersModule,
   ],
-  providers: [],
+  providers: [ListUserService],
   bootstrap: [AppComponent],
   exports: [
     AngularMaterialModule,

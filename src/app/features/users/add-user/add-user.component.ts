@@ -1,15 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { UserService } from '../services/user.service';
-import { FormGroup } from '@angular/forms';
 import { FormControl, Validators } from '@angular/forms';
-import {
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  Inject,
-  OnDestroy,
-} from '@angular/core';
 
 import { User } from '../models/user.model';
+import { ListUserService } from '../services/list-user.service';
+
+import SignaturePad from 'signature_pad';
 
 @Component({
   selector: 'app-add-user',
@@ -19,39 +15,52 @@ import { User } from '../models/user.model';
 export class AddUserComponent {
 
   email = new FormControl('', [Validators.required, Validators.email]);
-  
-
   user: User = {
     nameUser: '',
     dateBirth: new Date,
     email: '',
-    phoneNumber: ''
+    phoneNumber: '',
+    signImage: ''
   };
   submitted = false;
+  users?: User[];
+  message: string = '';
+  signError: string = '';
+
+  title = 'Signature Pad by Rajesh Gami';
+  signPad: any;
+  @ViewChild('signPadCanvas', { static: false }) signaturePadElement: any;
+  signImage: any;
+
 
   constructor(
-    private userService: UserService
+    private userService: UserService,
+    private listUserService: ListUserService,
   ) { }
 
-
   saveUser(): void {
+    console.log(this.signImage)
     const data = {
       nameUser: this.user.nameUser,
       dateBirth: this.user.dateBirth,
       email: this.user.email,
-      phoneNumber: this.user.phoneNumber
+      phoneNumber: this.user.phoneNumber,
+      signImage: this.signImage
     };
+    if (this.signImage === undefined) {
+      this.signError = 'Please sign the document';
+    } else {
+      this.userService.create(data)
+        .subscribe({
+          next: (res) => {
+            this.message = res.message;
+            this.submitted = true;
+            this.retrieveUsers();
+          },
+          error: (e) => console.error(e)
+        });
+    }
 
-    console.log(data);
-
-    this.userService.create(data)
-      .subscribe({
-        next: (res) => {
-          console.log(res);
-          this.submitted = true;
-        },
-        error: (e) => console.error(e)
-      });
   }
 
   newUser(): void {
@@ -70,6 +79,48 @@ export class AddUserComponent {
     }
     return this.email.hasError('email') ? 'Not a valid email' : '';
   }
+
+  retrieveUsers(): void {
+    this.userService.getAll()
+      .subscribe({
+        next: (data) => {
+          this.users = data.data;
+          this.listUserService.setUser(this.users);
+        },
+        error: (e) => console.error(e)
+      });
+  }
+
+
+
+  ngAfterViewInit() {
+    this.signPad = new SignaturePad(this.signaturePadElement.nativeElement);
+  }
+  /*It's work in devices*/
+  startSignPadDrawing(event: Event) {
+    console.log(event);
+  }
+  /*It's work in devices*/
+  movedFinger(event: Event) {
+  }
+  /*Undo last step from the signature*/
+  undoSign() {
+    const data = this.signPad.toData();
+    if (data) {
+      data.pop(); // remove the last step
+      this.signPad.fromData(data);
+    }
+  }
+  /*Clean whole the signature*/
+  clearSignPad() {
+    this.signPad.clear();
+  }
+  /*Here you can save the signature as a Image*/
+  saveSignPad() {
+    const base64ImageData = this.signPad.toDataURL();
+    this.signImage = base64ImageData;
+  }
+
 
 }
 

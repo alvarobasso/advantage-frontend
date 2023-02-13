@@ -12,4 +12,5 @@ export class User {
     dateBirth?:   Date;
     email?:       string;
     phoneNumber?: string;
+    signImage?:   string;
 }
